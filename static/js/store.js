@@ -1,6 +1,5 @@
 /* global Vuex */
-
-const store = Vuex.createStore({
+const store = new Vuex.Store({
   state: {
     tabAuthorshipInfo: {},
     tabZoomInfo: {},

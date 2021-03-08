@@ -1,10 +1,23 @@
-/* global Vuex Vue hljs */
+/* global Vuex */
 // eslint-disable-next-line import/extensions
 import store from './store.js';
 
+/* global Vue hljs */
+Vue.directive('hljs', {
+  inserted(ele, binding) {
+    const element = ele;
+    element.className = binding.value.split('.').pop();
+
+    hljs.highlightBlock(element);
+  },
+});
+
+Vue.component('font-awesome-icon', window['vue-fontawesome'].FontAwesomeIcon);
+Vue.component('loading-overlay', window.VueLoading);
+
 const loadingResourcesMessage = 'Loading resources...';
 
-const app = Vue.createApp({
+window.app = new window.Vue({
   el: '#app',
   store,
   data: {
@@ -233,18 +246,3 @@ const app = Vue.createApp({
     this.updateReportDir();
   },
 });
-
-app.directive('hljs', {
-  inserted(ele, binding) {
-    const element = ele;
-    element.className = binding.value.split('.').pop();
-
-    hljs.highlightBlock(element);
-  },
-});
-
-app.component('font-awesome-icon', window['vue-fontawesome'].FontAwesomeIcon);
-app.component('loading-overlay', window.VueLoading);
-app.use(store);
-
-window.app = app;
