@@ -1,11 +1,14 @@
 /* global Vuex */
-const store = new Vuex.Store({
+
+const store = Vuex.createStore({
   state: {
     tabAuthorshipInfo: {},
     tabZoomInfo: {},
     summaryDates: {},
     mergedGroups: [],
     fileTypeColors: {},
+    loadingOverlayCount: 0,
+    loadingOverlayMessage: '',
   },
   mutations: {
     updateTabZoomInfo(state, info) {
@@ -22,6 +25,15 @@ const store = new Vuex.Store({
     },
     updateMergedGroup(state, info) {
       state.mergedGroups = info;
+    },
+    incrementLoadingOverlayCount(state, increment) {
+      state.loadingOverlayCount += increment;
+      if (state.loadingOverlayCount === 0) {
+        state.loadingOverlayMessage = 'Loading. Please wait...';
+      }
+    },
+    updateLoadingOverlayMessage(state, message) {
+      state.loadingOverlayMessage = message;
     },
   },
 });
